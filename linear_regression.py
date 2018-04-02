@@ -26,8 +26,10 @@ def dl_dtheta1(x, y, theta0, theta1):
 for e in range(epochs):
     # Loop through training data
     for data in train_data:
+        old_theta0 = theta0
+        old_theta1 = theta1
         # Update Theta0 parameter
-        theta0 = theta0 - epsilon*dl_dtheta0(data[0], data[1], theta0, theta1)
+        theta0 = old_theta0 - epsilon*dl_dtheta0(data[0], data[1], old_theta0, old_theta1)
         # Update Theta1 parameter
-        theta1 = theta1 - epsilon*dl_dtheta1(data[0], data[1], theta0, theta1)
+        theta1 = old_theta1 - epsilon*dl_dtheta1(data[0], data[1], old_theta0, old_theta1)
     print("Epoch "+str(e)+" : ("+str(theta0)+", "+str(theta1)+")")

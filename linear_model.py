@@ -11,6 +11,7 @@ mul = theta0 * input
 prediction = mul + theta1
 
 with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
+
     result = sess.run(prediction, feed_dict={input:1, theta1:5, theta0:-1.2})
+    
     print(result)

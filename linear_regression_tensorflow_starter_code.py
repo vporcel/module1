@@ -25,16 +25,18 @@ val_dataset = {
 epsilon = 0.01
 epochs = 50
 
-# TODO : Model definition
-# Create placeholders for data feeding
+###### MODEL DEFINITION #####
+#TODO :  Create placeholders for data feeding
 
-# Create model variables theta0 and theta1
+#TODO :  Create model variables theta0 and theta1
 
-# Create prediction node (i.e theta0*x+theta1)
+#TODO :  Create prediction node (i.e theta0*x+theta1)
 
-# Create loss node
+#TODO :  Create loss node
 
-# Define optimizer ops
+#TODO :  Define optimizer ops
+
+###### /MODEL DEFINITION #####
 
 
 with tf.Session() as sess:

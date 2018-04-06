@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Define the train dataset
 train_dataset = {
@@ -17,9 +18,19 @@ val_dataset = {
         [0.5, 2, 0, -1.5, -1.2]
     ),
     "labels":np.array(
-        [3.5,3.3,4,8.5,6]
+        [3.5,4.3,4,8.5,8]
     )
 }
+
+# Tool function to plot the dataset
+def plot_dataset(train_dataset, val_dataset):
+    plt.scatter(train_dataset["inputs"], train_dataset["labels"], label="train")
+    plt.scatter(val_dataset["inputs"], val_dataset["labels"], label="val")
+    plt.legend()
+    plt.show()
+
+# Plot the dataset
+plot_dataset(train_dataset, val_dataset)
 
 # Training parameters
 epsilon = 0.01
@@ -42,16 +53,23 @@ prediction = mul + theta1
 loss = tf.square((prediction-labels))
 
 # Define optimizer (here classic gradient descent)
-optimizer = tf.train.RMSPropOptimizer(epsilon).minimize(loss)
+optimizer = tf.train.GradientDescentOptimizer(epsilon).minimize(loss)
 
 with tf.Session() as sess:
     # Run the variable initializer
     sess.run(tf.global_variables_initializer())
 
+    # Create arrays for loss and accuracy curves plots
+    train_accuracies = []
+    val_accuracies = []
+    train_losses = []
+    val_losses = []
+
     # Loop through epochs number
     for e in range(epochs):
 
         ###### TRAINING LOOP #####
+
         # Initialise our variable to compute loss and accuracy on this val epoch
         train_accuracy = 0
         train_loss = 0
@@ -74,6 +92,10 @@ with tf.Session() as sess:
         print("Epoch %f : ( %f , %f)" % (e, theta_0, theta_1))
         print("Train accuracy = %d %%" % (train_accuracy * 100 / (idx + 1)))
         print("Train loss = %f " % (train_loss))
+
+        # Store the train results
+        train_accuracies.append((train_accuracy * 100 / (idx + 1)))
+        train_losses.append(train_loss)
         ###### /TRAIN LOOP #####
 
 
@@ -92,9 +114,26 @@ with tf.Session() as sess:
             val_loss += loss_
 
             # Compute the accuracy for train, add the current example value to the total epoch train accuracy
-            if np.absolute((pred-label)) <1:
+            if np.absolute((pred-label)) < 1:
                 val_accuracy += 1
 
+        # Print the val results
         print("Val accuracy = %d %%" % (val_accuracy*100/(idx+1)))
         print("Val loss = %f " % (val_loss))
+
+        # Store the val results
+        val_accuracies.append((val_accuracy*100/(idx+1)))
+        val_losses.append(val_loss)
         ###### /EVALUATION LOOP #####
+
+    # Plot losses
+    plt.plot(range(epochs), val_losses, label="val")
+    plt.plot(range(epochs), train_losses, label="train")
+    plt.legend()
+    plt.show()
+
+    # Plot accuracies
+    plt.plot(range(epochs), val_accuracies, label="val")
+    plt.plot(range(epochs), train_accuracies, label="train")
+    plt.legend()
+    plt.show()

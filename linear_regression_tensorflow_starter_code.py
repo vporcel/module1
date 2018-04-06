@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Define the train dataset
 train_dataset = {
@@ -20,6 +21,13 @@ val_dataset = {
         [3.5,3.3,4,8.5,6]
     )
 }
+
+# Tool function to plot the dataset
+def plot_dataset(train_dataset, val_dataset):
+    plt.scatter(train_dataset["inputs"], train_dataset["labels"], label="train")
+    plt.scatter(val_dataset["inputs"], val_dataset["labels"], label="val")
+    plt.legend()
+    plt.show()
 
 # Training parameters
 epsilon = 0.01

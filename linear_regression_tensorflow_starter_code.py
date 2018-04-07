@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 # Define the train dataset
 train_dataset = {
     "inputs":np.array(
-        [0, 2, 1, -2, -1]
+        [0, 2, 1, -2, -1, -1.5, -2.8, 3, 4.1]
     ),
     "labels":np.array(
-        [4,3,4,8,6]
+        [4,3,4,8,6,7,9,0,0.2]
     )
 }
 

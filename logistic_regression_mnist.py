@@ -3,12 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Define parameters
-epochs = 100
+epochs = 50
 batch_size = 500
 
 # Read dataset
-X = np.load("MNIST/10k_sample_normal/X.npy")
-Y = np.load("MNIST/10k_sample_normal/Y.npy")
+X = np.load("../datasets/MNIST/10k_sample_normal/X.npy")
+Y = np.load("../datasets/MNIST/10k_sample_normal/Y.npy")
 
 # Split into train and val datasets
 X_TRAIN = X[0:8000]
